@@ -1,0 +1,50 @@
+name: Test Upload
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    environment:
+      name: test-upload
+    permissions:
+      contents: read
+    env:
+      AITO_APP_NAME: ${{ vars.AITO_APP_NAME }}
+      AITO_DISPLAY_NAME: ${{ vars.AITO_DISPLAY_NAME }}
+      AITO_PRIMARY_COLOR: ${{ vars.AITO_PRIMARY_COLOR }}
+      AITO_ICON_URL: ${{ vars.AITO_ICON_URL }}
+      AITO_STAGE: test
+      AITO_API_BASE_URL: ${{ vars.AITO_API_BASE_URL }}
+      AITO_WORKSPACE_NAME: ${{ vars.AITO_WORKSPACE_NAME }}
+      AITO_DEPLOY_API_KEY: ${{ secrets.AITO_DEPLOY_API_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Release gate
+        run: npm run doctor:release
+
+      - name: Build bundle
+        run: npm run build
+
+      - name: Upload bundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: apps-in-toss-bundle
+          path: "*.ait"
+          if-no-files-found: error
+
+      - name: Upload to Apps in Toss test environment
+        run: npm run upload:test

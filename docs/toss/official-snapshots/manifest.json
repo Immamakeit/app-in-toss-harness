@@ -1,0 +1,60 @@
+{
+  "fetchedAt": "2026-03-24T01:26:40.555Z",
+  "docs": [
+    {
+      "slug": "react-native",
+      "name": "React Native 튜토리얼",
+      "rawUrl": "https://developers-apps-in-toss.toss.im/tutorials/react-native.md",
+      "pageUrl": "https://developers-apps-in-toss.toss.im/tutorials/react-native.html",
+      "priority": "high",
+      "snapshotPath": "docs/toss/official-snapshots/react-native.md",
+      "hash": "f92cffbff492d9ed76375bb63fc8f60e4ddab34c0dddee54d94bc5e9b3e0d2be",
+      "bytes": 21207,
+      "fetchedAt": "2026-03-24T01:26:40.555Z"
+    },
+    {
+      "slug": "test-toss",
+      "name": "토스앱 테스트",
+      "rawUrl": "https://developers-apps-in-toss.toss.im/development/test/toss.md",
+      "pageUrl": "https://developers-apps-in-toss.toss.im/development/test/toss.html",
+      "priority": "critical",
+      "snapshotPath": "docs/toss/official-snapshots/test-toss.md",
+      "hash": "c032fd124de4c7a7eeb6b897ed31991a42c9444c953ecefbb286aabaf678a6dd",
+      "bytes": 8628,
+      "fetchedAt": "2026-03-24T01:26:40.555Z"
+    },
+    {
+      "slug": "deploy",
+      "name": "미니앱 출시",
+      "rawUrl": "https://developers-apps-in-toss.toss.im/development/deploy.md",
+      "pageUrl": "https://developers-apps-in-toss.toss.im/development/deploy.html",
+      "priority": "critical",
+      "snapshotPath": "docs/toss/official-snapshots/deploy.md",
+      "hash": "c7a4a2a73db9c8f9604b8b41141cedaee855a47c9a333afcd194f19ebc19f19a",
+      "bytes": 6289,
+      "fetchedAt": "2026-03-24T01:26:40.555Z"
+    },
+    {
+      "slug": "release-note",
+      "name": "릴리즈 노트",
+      "rawUrl": "https://developers-apps-in-toss.toss.im/release-note.md",
+      "pageUrl": "https://developers-apps-in-toss.toss.im/release-note.html",
+      "priority": "critical",
+      "snapshotPath": "docs/toss/official-snapshots/release-note.md",
+      "hash": "f9241fa7d1d7db7d00b32fe05e2bc0acce8969ae9f4e0482afb541145461917a",
+      "bytes": 359,
+      "fetchedAt": "2026-03-24T01:26:40.555Z"
+    },
+    {
+      "slug": "service-open-policy",
+      "name": "서비스 오픈 정책",
+      "rawUrl": "https://developers-apps-in-toss.toss.im/intro/guide.md",
+      "pageUrl": "https://developers-apps-in-toss.toss.im/intro/guide.html",
+      "priority": "critical",
+      "snapshotPath": "docs/toss/official-snapshots/service-open-policy.md",
+      "hash": "86f6e09535f5afce541e0537df70a1563784425a8c88f4c65e41d27375685368",
+      "bytes": 12168,
+      "fetchedAt": "2026-03-24T01:26:40.555Z"
+    }
+  ]
+}

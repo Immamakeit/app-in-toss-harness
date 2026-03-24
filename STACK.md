@@ -1,0 +1,30 @@
+# Stack
+
+- Platform: Apps in Toss Mini App
+- Methodology: TDD
+- App runtime: React Native on Granite
+- Apps in Toss SDK: `@apps-in-toss/framework@2.0.9`
+- UI system: `@toss/tds-react-native@1.3.8`
+- Core runtime: `react@19.2.3`, `react-native@0.84.0`
+- Granite packages: `@granite-js/react-native@1.0.7`, `@granite-js/native@1.0.7`
+- Build: `ait build`
+- Local dev: `granite dev`
+- Test upload: `ait deploy`
+- Release gate: console review request -> approval -> console release
+- Config source: `granite.config.ts` + `.env`
+- Repo CI: GitHub Actions running `npm run verify`
+- Docs freshness: scheduled drift check against tracked official docs
+- Test paths:
+  - Sandbox app for day-to-day dev and QA
+  - Toss app QR test for final pre-release validation
+- Server requirements when using platform APIs:
+  - Partner server -> Apps in Toss server -> Toss server model
+  - HTTPS in live
+  - CORS allowlist for `*.apps.tossmini.com`
+  - mTLS for Login, TossPay, IAP, Push, Promotion
+  - Base domains: `https://apps-in-toss-api.toss.im`, `https://pay-apps-in-toss-api.toss.im`
+  - API response envelope: branch on `resultType`
+  - Default API capacity: 3,000 QPM
+  - Managed firewall envs must allow documented inbound/outbound IPs on `443`
+  - Login data is server-side: auth code exchange, token storage, encrypted PII decryption
+  - Payment/IAP reconciliation uses status APIs, not client callbacks alone
