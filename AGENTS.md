@@ -54,6 +54,9 @@ Apps in Toss 동작 방식, SDK 제약, 검수 기준은 관성적으로 일반 
   - 테스트 업로드 직전
   - 검토 요청 직전
   - 출시 직전
+- `skills/claude-code-migrator/SKILL.md`
+  - 사용자가 **명시적으로** `Claude Code 마이그레이션`, `$claude-code-migrator`, `CLAUDE.md`, `.claude/settings.json`, `.claude/skills`, `.claude/commands` 생성을 요청할 때만
+  - 일반적인 Apps in Toss 개발/기획/검수 작업에서는 **절대 자동 호출하지 않는다**
 
 여러 스킬이 동시에 필요하면 아래 순서를 기본으로 한다.
 
@@ -315,6 +318,8 @@ Apps in Toss 동작 방식, SDK 제약, 검수 기준은 관성적으로 일반 
 - 서버/API 연동 요구가 있으면, 구현 전에 `skills/apps-in-toss-backend-scope-slicer/SKILL.md`로 최소 백엔드 범위를 먼저 자른다.
 - 자동 테스트만으로 충분하지 않은 기능이면, 구현 후 `skills/apps-in-toss-manual-test-scribe/SKILL.md`로 수동 검증 시나리오를 남긴다.
 - 빌드, 테스트 업로드, 검토 요청, 출시 직전에는 `skills/apps-in-toss-release-readiness-checker/SKILL.md`로 게이트를 다시 확인한다.
+- `skills/claude-code-migrator/SKILL.md`는 **예외적으로 수동 전용**이다. 사용자가 명시적으로 호출하지 않았다면 읽지 않는다.
+- 사용자의 명시적 요청 없이 `CLAUDE.md`, `.claude/settings.json`, `.claude/skills/*`, `.claude/commands/*`를 새로 만들거나 수정하지 않는다.
 - 업무별 API 범위를 빠르게 파악할 때는 `docs/toss/integration/*.md`를 입구로 쓰고, 실제 구현 전에는 반드시 공식 원문으로 다시 맞춘다.
 - 서버 API나 백엔드 규칙을 건드릴 때는 `docs-search` 또는 공식 원문 URL을 먼저 확인한다.
 - 로컬 문서만으로 불확실하면 `docs-search`를 사용해 공식 원문을 확인한다.

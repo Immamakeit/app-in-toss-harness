@@ -47,6 +47,7 @@
 - 저장소 전용 스킬은 `skills/<skill-name>/SKILL.md`에 버전관리
 - Apps in Toss 요청이 애매하거나 위험할수록 구현보다 스킬 판단을 먼저 수행
 - 각 스킬은 사용되면 응답 마지막에 `스킬 사용 보고`를 남기도록 정의됨
+- `claude-code-migrator`는 예외적으로 **수동 전용**이며, 명시적 호출 없이는 사용하지 않음
 
 ### 1. `apps-in-toss-request-validator`
 
@@ -226,6 +227,121 @@
 - 통과한 항목
 - 막고 있는 항목
 - 다음 액션
+
+### 7. `claude-code-migrator`
+
+위치:
+
+- `skills/claude-code-migrator/SKILL.md`
+
+사용처:
+
+- 이 하니스를 Claude Code에서도 바로 작업 가능한 형태로 옮기고 싶을 때
+- `AGENTS.md`, repo-local skills, 하니스 규칙을 `CLAUDE.md`, `.claude/settings.json`, `.claude/skills`, `.claude/commands`로 변환하고 싶을 때
+
+중요:
+
+- 이 스킬은 **자동 호출 금지**입니다.
+- 일반적인 Apps in Toss 개발 중에는 절대 사용하지 않습니다.
+- 사용자가 명시적으로 `$claude-code-migrator`를 호출하거나, `Claude Code 마이그레이션`, `CLAUDE.md`, `.claude/settings.json`, `.claude/skills`, `.claude/commands` 생성을 요청할 때만 사용합니다.
+
+트리거:
+
+- “`$claude-code-migrator` 이 하니스를 Claude Code용으로 옮겨줘”
+- “Codex 규칙과 스킬을 Claude Code 파일로 동기화해줘”
+- “`CLAUDE.md`와 `.claude/settings.json` 만들어줘”
+
+대표 예시:
+
+- “`$claude-code-migrator` AGENTS.md와 skills를 기준으로 Claude Code 마이그레이션 한 번 돌려줘”
+- “`$claude-code-migrator` 현재 하니스 기준으로 `CLAUDE.md`, `.claude/settings.json`, `.claude/skills`, `.claude/commands`를 만들어줘”
+- “`$claude-code-migrator` 기존 Claude Code 파일을 지금 repo 상태에 맞게 다시 동기화해줘”
+
+출력 성격:
+
+- 생성/수정된 Claude Code 파일 목록
+- Codex -> Claude 매핑 결과
+- 1:1로 안 맞는 부분과 우회 방식
+- 다음에 Claude Code에서 바로 쓸 수 있는 시작점
+
+## Claude Code 마이그레이션 스킬 호출 방법
+
+이 하니스는 기본적으로 Codex 기준으로 관리됩니다.
+Claude Code용 파일은 자동으로 만들지 않습니다.
+필요할 때만 아래처럼 **명시적으로** 호출합니다.
+
+### 언제 호출하나
+
+- 이 하니스를 다른 팀이 Claude Code로 쓰기 시작할 때
+- `AGENTS.md`나 repo-local skills가 많이 바뀌어서 Claude 쪽 파일도 다시 맞춰야 할 때
+- Codex와 Claude Code를 병행 운영하려고 할 때
+
+### 언제 호출하지 않나
+
+- 일반적인 Apps in Toss 기획/개발/테스트/배포 작업
+- 단순 README 수정이나 UI 구현
+- 서버/API 구현
+
+### 권장 호출 예시 1. 첫 마이그레이션
+
+```text
+$claude-code-migrator
+이 하니스를 Claude Code용으로 마이그레이션해줘.
+
+목표:
+- AGENTS.md를 바탕으로 CLAUDE.md 생성
+- repo-local skills를 Claude Code에서 재사용 가능한 구조로 변환
+- manual-only 흐름은 .claude/commands 로 분리
+- 공유 설정만 .claude/settings.json 에 반영
+
+제약:
+- 기존 Codex 파일은 삭제하지 말 것
+- ~/.claude 같은 사용자 홈 디렉터리는 건드리지 말 것
+- 1:1 매핑이 안 되는 부분은 notes로 남길 것
+```
+
+### 권장 호출 예시 2. 기존 Claude 파일 재동기화
+
+```text
+$claude-code-migrator
+현재 AGENTS.md, README, skills/ 기준으로 기존 Claude Code 파일을 다시 동기화해줘.
+
+원칙:
+- 이미 있는 CLAUDE.md 와 .claude/* 는 최대한 보존
+- 충돌나는 규칙만 비교해서 정리
+- 새로 필요한 project skills / commands 만 추가
+```
+
+### 권장 호출 예시 3. 특정 범위만 마이그레이션
+
+```text
+$claude-code-migrator
+이번에는 전체 마이그레이션 말고, Apps in Toss 전용 검증 스킬들만 Claude Code 쪽으로 옮겨줘.
+
+포함:
+- request-validator
+- review-risk-checker
+- feature-prereq-mapper
+
+제외:
+- 앱 구현 코드 변경
+- 사용자 로컬 설정 파일 생성
+```
+
+### 이 스킬이 실제로 해야 하는 일
+
+- `AGENTS.md` -> `CLAUDE.md`
+- Codex repo-local skills -> 필요 시 `.claude/skills/`
+- 수동 전용 흐름 -> `.claude/commands/`
+- 공유 설정 -> `.claude/settings.json`
+- 차이가 나는 개념은 migration notes로 문서화
+
+### 이 스킬이 하면 안 되는 일
+
+- 일반 개발 작업 중 자동 실행
+- 앱 비즈니스 로직 임의 수정
+- 비밀값을 Claude 설정 파일에 기록
+- 사용자 홈 디렉터리 `~/.claude/*` 수정
 
 ## 사전 준비
 

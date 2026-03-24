@@ -1,0 +1,7 @@
+interface:
+  display_name: "Claude Code Migrator"
+  short_description: "Codex harness를 Claude Code로 옮기는 수동 마이그레이터"
+  default_prompt: "Use $claude-code-migrator to migrate this Apps in Toss harness into Claude Code project files."
+
+policy:
+  allow_implicit_invocation: false
