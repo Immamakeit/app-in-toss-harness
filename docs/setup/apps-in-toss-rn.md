@@ -1,6 +1,9 @@
 # Apps in Toss RN Setup
 
-## Fixed Decisions
+## Current RN Baseline
+
+이 문서는 현재 이 하니스 저장소가 제공하는 RN reference baseline을 설명한다.
+Apps in Toss 전체가 항상 RN으로 고정된다는 뜻은 아니고, 현재 포함된 기본 구현이 RN이라는 뜻이다.
 
 - Framework: React Native
 - Runtime base: Granite
@@ -10,8 +13,10 @@
 
 ## Local Environment
 
+이 절차는 이 하니스를 복제해 만든 앱 저장소에서 수행하는 절차다.
+
 1. `npm install`
-2. Initialize the harness:
+2. Initialize the app with the harness:
 
 ```bash
 npm run bootstrap -- \
@@ -27,7 +32,7 @@ npm run bootstrap -- \
 
 If `.env` already exists, re-run bootstrap with `--force` to overwrite it.
 
-## Required Values To Confirm
+## Values The App Must Confirm
 
 - `AITO_APP_NAME`
   - Must exactly match the app name registered in the Apps in Toss console.
@@ -45,7 +50,7 @@ If `.env` already exists, re-run bootstrap with `--force` to overwrite it.
 - `AITO_API_BASE_URL`
   - Backend base URL if this app talks to your server.
 
-Bootstrap writes those values into `.env` and keeps deploy credentials empty on purpose.
+Bootstrap writes those values into the app repo's `.env` and keeps deploy credentials empty on purpose.
 
 ## CORS
 
@@ -54,7 +59,7 @@ Official live/test origins depend on `appName`.
 - Live: `https://<appName>.apps.tossmini.com`
 - QR test: `https://<appName>.private-apps.tossmini.com`
 
-This repo can print them with:
+This harness repo can print them with:
 
 ```bash
 npm run cors:print
@@ -101,7 +106,7 @@ npm run upload:test
   - Refreshes local raw snapshots under `docs/toss/official-snapshots`
   - Raw markdown snapshots are for local/CI use and should not be committed to the public repo
 - `npm test`
-  - Includes harness smoke tests plus RN starter screen smoke tests
+  - Includes harness smoke tests plus RN baseline screen smoke tests
 
 ## mTLS
 

@@ -2,7 +2,7 @@
 
 이 저장소는 Apps in Toss용 개발, 빌드, 테스트 업로드, 배포 준비 흐름을 정리한 공개용 하니스입니다.
 핵심 목적은 웹이든 게임이든 비게임이든, 결과물이 Apps in Toss에 실제로 배포 가능한 형태가 되도록 수렴시키는 것입니다.
-현재 기본 starter 구현은 `React Native + Granite + Apps in Toss SDK 2.x` 기준입니다.
+현재 저장소에 포함된 기본 reference implementation은 `React Native + Granite + Apps in Toss SDK 2.x` 기준입니다.
 
 1. clone
 2. 앱 이름과 환경값 초기화
@@ -21,7 +21,7 @@
 
 - Apps in Toss용 RN 미니앱을 새로 시작할 때
 - 팀이 같은 개발/검증/배포 흐름을 재사용하고 싶을 때
-- 공개 GitHub 저장소로 배포 가능한 starter를 만들고 싶을 때
+- 공개 GitHub 저장소로 배포 가능한 하니스 템플릿을 만들고 싶을 때
 - 기획만 얹으면 바로 개발을 시작할 수 있는 harness가 필요할 때
 
 ## 포함된 것
@@ -35,11 +35,11 @@
 - `verify` CI 검증 세트
 - `.ait` 빌드 및 테스트 업로드 명령
 - 공식 Apps in Toss 문서 drift 감지
-- 하니스 smoke test + RN starter screen smoke test
+- 하니스 smoke test + RN baseline screen smoke test
 
 ## Repo-local Skills
 
-이 저장소에는 Apps in Toss 전용 판단과 운영을 돕는 repo-local 스킬이 포함되어 있습니다.
+이 하니스 저장소에는 Apps in Toss 전용 판단과 운영을 돕는 repo-local 스킬이 포함되어 있습니다.
 원본은 모두 `skills/` 아래에 들어 있고, `AGENTS.md` 규칙에 따라 필요할 때 해당 `SKILL.md`를 직접 읽는 방식으로 사용합니다.
 
 공통 규칙:
@@ -242,17 +242,17 @@
 - CLI 테스트 업로드를 쓸 거면 Apps in Toss API 키
 - 로그인/결제/프로모션/푸시를 쓸 거면 파트너 서버와 mTLS 인증서/키
 
-## 사용자가 직접 세팅해야 하는 것
+## 하니스를 사용하는 쪽에서 직접 세팅해야 하는 것
 
-이 하니스는 프론트 스택 자체는 이미 고정되어 있습니다.
-즉, 사용자가 별도로 고르는 프론트 스택은 없습니다.
+현재 이 하니스 저장소가 기본 제공하는 reference implementation은 아래 스택으로 동작합니다.
+즉, 지금 제공되는 예시 구현은 아래 조합을 baseline으로 삼습니다.
 
 - `React Native`
 - `Granite`
 - `@apps-in-toss/framework` SDK 2.x
 - `@toss/tds-react-native`
 
-사용자가 직접 준비해야 하는 것은 아래 네 묶음입니다.
+이 하니스를 복제해 실제 앱 저장소를 만들 때 직접 준비해야 하는 것은 아래 다섯 묶음입니다.
 
 ### 1. 로컬 개발 환경
 
@@ -278,11 +278,11 @@
 
 - `appName`은 콘솔 값과 프로젝트 값이 정확히 같아야 합니다.
 
-### 3. 이 저장소에 넣을 환경값
+### 3. 하니스를 복제해 만든 앱 저장소에서 채울 환경값
 
 넣는 위치:
 
-- 로컬 개발: 저장소 루트의 `.env`
+- 로컬 개발: 해당 앱 저장소 루트의 `.env`
 - 로컬 초기화: `npm run bootstrap ...`
 - GitHub Actions 일반값: repository `Variables`
 - GitHub Actions 비밀값: repository `Secrets` 또는 `test-upload` environment secret
@@ -610,7 +610,7 @@ adb reverse tcp:5173 tcp:5173
 
 ## GitHub Actions
 
-이 저장소에는 세 가지 workflow가 있습니다.
+이 하니스 저장소에는 네 가지 workflow가 있습니다.
 
 ### `CI`
 
@@ -711,7 +711,7 @@ adb reverse tcp:5173 tcp:5173
 5. 콘솔에서 검토 요청
 6. 승인 후 콘솔에서 출시
 
-즉, 이 저장소는 `개발`, `검증`, `빌드`, `테스트 업로드`까지를 강하게 자동화하고,
+즉, 이 하니스는 `개발`, `검증`, `빌드`, `테스트 업로드`까지를 강하게 자동화하고,
 `검토 요청`과 `출시하기`는 공식 흐름에 맞춰 수동 단계로 남깁니다.
 
 ## 공식 제약 메모
