@@ -37,6 +37,127 @@
 - 공식 Apps in Toss 문서 drift 감지
 - 하니스 smoke test + RN baseline screen smoke test
 
+## 새 팀원이 30분 안에 개발 시작하는 절차
+
+이 저장소는 새 팀원이 아래 순서대로 따라가면 `30분 안에 로컬 개발 시작`까지 가는 것을 목표로 합니다.
+중요한 점은, 이 하니스 자체가 곧바로 특정 앱이 되는 게 아니라 `앱별 값과 기획`을 얹어 쓰는 기반이라는 점입니다.
+
+### 0. 시작 전에 관리자나 기존 담당자에게 받아올 것
+
+아래 4개가 있으면 가장 빠르게 시작할 수 있습니다.
+
+- Apps in Toss 콘솔의 정확한 `appName`
+- 사용자에게 보여줄 `displayName`
+- 브랜드 대표 색상 `primaryColor`
+- 개발용 또는 공용 `AITO_API_BASE_URL`
+
+없어도 로컬 구조 확인은 가능하지만, 실제 앱 기준으로 맞는 초기화와 release gate 통과는 이 값들이 있어야 합니다.
+
+### 1. 5분: 저장소 실행 준비
+
+```bash
+git clone git@github.com:Immamakeit/app-in-toss-harness.git my-app
+cd my-app
+npm install
+```
+
+확인 기준:
+
+- 의존성 설치가 끝난다.
+- `node_modules/`가 생긴다.
+
+여기서 막히면:
+
+- Node.js / npm 버전을 먼저 확인합니다.
+- 네트워크나 레지스트리 접근 문제가 있으면 로컬 개발 환경부터 정리해야 합니다.
+
+### 2. 10분: 앱별 값으로 초기화
+
+```bash
+npm run bootstrap -- \
+  --app-name my-miniapp \
+  --display-name "내 앱" \
+  --primary-color "#3182F6" \
+  --api-base-url "https://api.example.com"
+```
+
+이 단계의 목적:
+
+- 하니스 기본값을 현재 작업할 앱 값으로 바꾼다.
+- 앱 저장소 루트의 `.env`를 만든다.
+- 템플릿 이름이 남아 있으면 `package.json` 이름도 맞춘다.
+
+확인 기준:
+
+- `./.env`가 생성된다.
+- `npm run doctor`에서 현재 상태가 읽힌다.
+
+여기서 막히면:
+
+- `appName`이 아직 없으면 콘솔 관리자에게 정확한 값을 받아옵니다.
+- `apiBaseUrl`이 아직 없으면 임시값으로 초기화는 가능하지만, 실제 release/build 전에는 교체해야 합니다.
+
+### 3. 15분: 검증과 개발 서버 실행
+
+```bash
+npm run doctor
+npm run verify
+npm run dev
+```
+
+이 단계의 목적:
+
+- 하니스 기준 lint/typecheck/test가 깨지지 않는지 본다.
+- RN baseline 화면이 로컬에서 뜨는지 확인한다.
+
+확인 기준:
+
+- `doctor`가 현재 값을 읽고 warning/error를 보여준다.
+- `verify`가 통과한다.
+- `dev`가 실행된다.
+
+참고:
+
+- `doctor` warning은 초기 개발 단계에서 일부 허용될 수 있습니다.
+- 반대로 `doctor:release`와 `build`는 앱별 실제 값이 없으면 의도적으로 막힙니다.
+
+### 4. 30분: 첫 수정까지 완료
+
+처음 수정할 추천 파일:
+
+- `src/pages/index.tsx`
+
+여기서 할 일:
+
+- 홈 화면 문구를 바꾼다.
+- 새 화면을 하나 추가하거나 기존 baseline 텍스트를 바꿔서 반영을 본다.
+- 기획이 아직 없으면 README 아래 `Repo-local Skills` 섹션에서 어떤 스킬을 먼저 써야 할지 고른다.
+
+개발 시작 완료 기준:
+
+- baseline 화면이 뜬다.
+- 첫 화면 수정이 반영된다.
+- 다음으로 무엇을 할지 스스로 결정할 수 있다.
+
+보통 다음 분기:
+
+- Apps in Toss 가능 여부부터 봐야 하면 `apps-in-toss-request-validator`
+- 선행조건 정리가 먼저면 `apps-in-toss-feature-prereq-mapper`
+- 서버 범위가 애매하면 `apps-in-toss-backend-scope-slicer`
+
+### 30분 안에 하지 않아도 되는 것
+
+처음 진입 시점에는 아래까지 끝낼 필요가 없습니다.
+
+- `.ait` 빌드
+- 테스트 업로드
+- 검토 요청
+- 출시
+- mTLS 발급
+- 토스 로그인/결제/프로모션 콘솔 설정 완료
+
+이 단계들은 앱 기획과 실제 운영값이 정리된 뒤 진행하면 됩니다.
+
 ## Repo-local Skills
 
 이 하니스 저장소에는 Apps in Toss 전용 판단과 운영을 돕는 repo-local 스킬이 포함되어 있습니다.
@@ -593,7 +714,7 @@ Secret:
 
 - `AITO_DEPLOY_API_KEY`
 
-## 5분 시작
+## 상세 빠른 시작
 
 ### 1. 의존성 설치
 
