@@ -1,9 +1,11 @@
 ---
 name: apps-in-toss-release-readiness-checker
-description: Check whether an Apps in Toss app is ready for test upload, review request, or release. Use before building a release bundle, before requesting review, or before pressing release in the console.
+description: Use before building, test uploading, requesting review, or releasing an Apps in Toss app to determine the current release gate status.
 ---
 
 # Apps in Toss Release Readiness Checker
+
+## Overview
 
 Use this skill near build, upload, review, and release milestones.
 
@@ -30,25 +32,19 @@ Classify readiness into:
 
 ## Read In This Order
 
-1. `AGENTS.md`
-2. `docs/setup/apps-in-toss-rn.md`
-3. `docs/ops/apps-in-toss-harness-ci-cd.md`
-4. Relevant integration docs
-5. Official docs via `docs-search` if uncertain
+1. Host project instructions if present: `AGENTS.md`, `CLAUDE.md`, `README.md`, `STACK.md`
+2. Host-local Apps in Toss docs if present, especially setup, CI/CD, release, or integration notes
+3. Official Apps in Toss docs via `docs-search` or direct lookup when gate rules are uncertain
 
 ## Response Format
 
-1. Current readiness state
-2. Passed checks
-3. Blocking checks
-4. Recommended next action
+1. Target gate: `테스트 업로드`, `검토 요청`, or `출시`
+2. Current readiness state
+3. Passed checks
+4. Blocking checks
+5. Recommended next action
 
 ## Guardrails
 
 - Treat `review request` and `release` as separate gates.
 - Do not mark a build as release-ready if test upload or mandatory QA is missing.
-
-## 작업 완료 후 필수 보고
-
-- 이 스킬이 호출되어 결과를 작성한 경우, 응답 마지막에 반드시 아래 한 줄을 추가한다.
-- `스킬 사용 보고: $apps-in-toss-release-readiness-checker 적용 완료`

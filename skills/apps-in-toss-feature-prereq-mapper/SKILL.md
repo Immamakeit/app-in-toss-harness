@@ -1,9 +1,11 @@
 ---
 name: apps-in-toss-feature-prereq-mapper
-description: Map a requested Apps in Toss feature to its concrete prerequisites before implementation. Use when a user asks for a feature and you need to determine whether it requires permissions, console setup, app-function registration, backend work, mTLS, HTTPS, CORS, sandbox/manual QA, or review coordination.
+description: Use when a requested Apps in Toss feature seems viable but its concrete delivery prerequisites are still unclear.
 ---
 
 # Apps in Toss Feature Prereq Mapper
+
+## Overview
 
 Use this skill when a request is probably valid but the delivery prerequisites are still unclear.
 
@@ -28,10 +30,9 @@ For each feature or flow, mark whether it needs:
 
 ## Read In This Order
 
-1. `AGENTS.md`
-2. Relevant docs in `docs/toss/integration/*.md`
-3. `docs/setup/apps-in-toss-rn.md`
-4. Official docs via `docs-search` when uncertain
+1. Host project instructions if present: `AGENTS.md`, `CLAUDE.md`, `README.md`, `STACK.md`
+2. Host-local Apps in Toss docs if present, especially feature, setup, or ops notes
+3. Official Apps in Toss docs via `docs-search` or direct lookup when prerequisites are uncertain
 
 ## Response Format
 
@@ -47,8 +48,3 @@ For each requested feature:
 
 - Do not jump to implementation before the prerequisite matrix is clear.
 - If a prerequisite is unknown, mark it as `공식 문서 재확인 필요`.
-
-## 작업 완료 후 필수 보고
-
-- 이 스킬이 호출되어 결과를 작성한 경우, 응답 마지막에 반드시 아래 한 줄을 추가한다.
-- `스킬 사용 보고: $apps-in-toss-feature-prereq-mapper 적용 완료`

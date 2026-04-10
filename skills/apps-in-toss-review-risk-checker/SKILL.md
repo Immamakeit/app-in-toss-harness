@@ -1,9 +1,11 @@
 ---
 name: apps-in-toss-review-risk-checker
-description: Assess Apps in Toss review and launch risk before implementation or submission. Use when a user proposes a feature, monetization flow, external link behavior, branding pattern, app split strategy, promotion wording, or any plan that may be rejected or delayed during Apps in Toss review.
+description: Use when a technically buildable Apps in Toss plan may still be rejected, delayed, or constrained by review, launch, branding, or policy interpretation.
 ---
 
 # Apps in Toss Review Risk Checker
+
+## Overview
 
 Use this skill when the request may be technically buildable but still risky for review, app-function approval, or launch operations.
 
@@ -20,10 +22,9 @@ Then explain what specifically creates the risk and how to lower it.
 
 ## Read In This Order
 
-1. `AGENTS.md`
-2. Relevant docs under `docs/toss/integration/*.md`
-3. Relevant setup/ops docs under `docs/setup/*.md`, `docs/ops/*.md`
-4. If needed, use `docs-search` for official review/policy docs
+1. Host project instructions if present: `AGENTS.md`, `CLAUDE.md`, `README.md`, `STACK.md`
+2. Host-local Apps in Toss docs if present, especially policy, review, setup, or ops notes
+3. Official Apps in Toss docs via `docs-search` or direct lookup when review interpretation is unclear
 
 ## What To Check
 
@@ -51,8 +52,3 @@ Then explain what specifically creates the risk and how to lower it.
 - Distinguish `technical feasibility` from `review feasibility`.
 - If risk is high, do not present it as a normal implementation task.
 - Offer the nearest compliant alternative.
-
-## 작업 완료 후 필수 보고
-
-- 이 스킬이 호출되어 결과를 작성한 경우, 응답 마지막에 반드시 아래 한 줄을 추가한다.
-- `스킬 사용 보고: $apps-in-toss-review-risk-checker 적용 완료`

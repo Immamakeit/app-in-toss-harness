@@ -1,9 +1,11 @@
 ---
 name: apps-in-toss-manual-test-scribe
-description: Write a concrete manual QA checklist for Apps in Toss flows that cannot be reliably covered by automated tests. Use when a feature touches sandbox behavior, QR or intoss-private test flows, permissions, payments, login, promotions, app-function entry, device-specific behavior, or any bridge/runtime behavior that needs manual verification.
+description: Use when an Apps in Toss flow cannot be reliably covered by automated tests and needs a reproducible manual QA script.
 ---
 
 # Apps in Toss Manual Test Scribe
+
+## Overview
 
 Use this skill when automatic tests are not enough and a reproducible manual QA script is required.
 
@@ -22,10 +24,9 @@ Produce a short but complete manual test script that another person can execute.
 
 ## Read In This Order
 
-1. `AGENTS.md`
-2. Relevant feature docs in `docs/toss/integration/*.md`
-3. `docs/setup/apps-in-toss-rn.md`
-4. Official docs via `docs-search` if needed
+1. Host project instructions if present: `AGENTS.md`, `CLAUDE.md`, `README.md`, `STACK.md`
+2. Host-local Apps in Toss docs if present, especially feature, setup, or test notes
+3. Official Apps in Toss docs via `docs-search` or direct lookup when runtime test details are unclear
 
 ## Response Format
 
@@ -40,8 +41,3 @@ Produce a short but complete manual test script that another person can execute.
 
 - Be explicit about whether the test needs sandbox, QR, `intoss-private://`, iOS real device, Android `adb reverse`, or live console state.
 - Do not claim automation covers what actually needs manual runtime verification.
-
-## 작업 완료 후 필수 보고
-
-- 이 스킬이 호출되어 결과를 작성한 경우, 응답 마지막에 반드시 아래 한 줄을 추가한다.
-- `스킬 사용 보고: $apps-in-toss-manual-test-scribe 적용 완료`
