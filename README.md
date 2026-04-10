@@ -60,12 +60,23 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 
 자연어로 요청해도 된다. 핵심은 전역 스코프와 대상 경로를 분명히 말하는 것이다.
 
-예시:
+전체 팩 설치 예시:
 
 ```text
-이 GitHub 저장소의 Apps in Toss 스킬들을 전역 스코프로 설치해줘.
+이 GitHub 저장소의 Apps in Toss 스킬 7개를 전역 스코프로 전부 설치해줘.
 설치 위치는 ~/.codex/skills 로 해줘.
+포함 스킬은
+apps-in-toss-project-intake-router,
+apps-in-toss-request-validator,
+apps-in-toss-review-risk-checker,
+apps-in-toss-feature-prereq-mapper,
+apps-in-toss-backend-scope-slicer,
+apps-in-toss-manual-test-scribe,
+apps-in-toss-release-readiness-checker
+이야.
 ```
+
+단일 스킬 설치 예시:
 
 ```text
 $skill-installer
@@ -77,12 +88,23 @@ $skill-installer
 
 프로젝트 로컬에만 붙이고 싶으면 현재 프로젝트 기준 목적지까지 같이 말해주는 게 안전하다.
 
-예시:
+전체 팩 설치 예시:
 
 ```text
-이 GitHub 저장소의 Apps in Toss 스킬들을 현재 프로젝트 로컬 스코프로 설치해줘.
+이 GitHub 저장소의 Apps in Toss 스킬 7개를 현재 프로젝트 로컬 스코프로 전부 설치해줘.
 설치 위치는 ./.codex/skills 로 해줘.
+포함 스킬은
+apps-in-toss-project-intake-router,
+apps-in-toss-request-validator,
+apps-in-toss-review-risk-checker,
+apps-in-toss-feature-prereq-mapper,
+apps-in-toss-backend-scope-slicer,
+apps-in-toss-manual-test-scribe,
+apps-in-toss-release-readiness-checker
+이야.
 ```
+
+단일 스킬 설치 예시:
 
 ```text
 $skill-installer
