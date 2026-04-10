@@ -4,14 +4,18 @@
 
 각 스킬은 `skills/<skill-name>/SKILL.md` 구조를 따르므로 Codex `skill-installer`로 설치할 수 있다.
 
-단일 스킬 설치:
+### 1. Codex Skill Installer로 전역 스코프 설치
+
+전역 스코프는 기본적으로 `~/.codex/skills`를 쓴다. 여러 프로젝트에서 공통으로 쓸 스킬이면 이 방식이 맞다.
+
+단일 스킬:
 
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --url https://github.com/<owner>/<repo>/tree/main/skills/apps-in-toss-request-validator
 ```
 
-전체 팩 설치:
+전체 팩:
 
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
@@ -25,12 +29,74 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
          skills/apps-in-toss-release-readiness-checker
 ```
 
+### 2. Codex Skill Installer로 프로젝트 스코프 설치
+
+프로젝트 스코프는 `--dest`로 현재 프로젝트 안의 로컬 스킬 디렉터리를 지정하면 된다. 보통 `./.codex/skills` 같은 경로를 쓴다.
+
+단일 스킬:
+
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --url https://github.com/<owner>/<repo>/tree/main/skills/apps-in-toss-request-validator \
+  --dest ./.codex/skills
+```
+
+전체 팩:
+
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo <owner>/<repo> \
+  --path skills/apps-in-toss-project-intake-router \
+         skills/apps-in-toss-request-validator \
+         skills/apps-in-toss-review-risk-checker \
+         skills/apps-in-toss-feature-prereq-mapper \
+         skills/apps-in-toss-backend-scope-slicer \
+         skills/apps-in-toss-manual-test-scribe \
+         skills/apps-in-toss-release-readiness-checker \
+  --dest ./.codex/skills
+```
+
+### 3. 에이전트에게 자연어로 전역 스코프 설치 시키기
+
+자연어로 요청해도 된다. 핵심은 전역 스코프와 대상 경로를 분명히 말하는 것이다.
+
+예시:
+
+```text
+이 GitHub 저장소의 Apps in Toss 스킬들을 전역 스코프로 설치해줘.
+설치 위치는 ~/.codex/skills 로 해줘.
+```
+
+```text
+$skill-installer
+이 repo의 apps-in-toss-request-validator 스킬을 전역 스코프로 설치해줘.
+설치 위치는 ~/.codex/skills 로 해줘.
+```
+
+### 4. 에이전트에게 자연어로 프로젝트 스코프 설치 시키기
+
+프로젝트 로컬에만 붙이고 싶으면 현재 프로젝트 기준 목적지까지 같이 말해주는 게 안전하다.
+
+예시:
+
+```text
+이 GitHub 저장소의 Apps in Toss 스킬들을 현재 프로젝트 로컬 스코프로 설치해줘.
+설치 위치는 ./.codex/skills 로 해줘.
+```
+
+```text
+$skill-installer
+이 repo의 apps-in-toss-feature-prereq-mapper 스킬을 현재 프로젝트 전용으로 설치해줘.
+설치 위치는 ./.codex/skills 로 해줘.
+```
+
 설치 제약:
 
 - bare GitHub repo URL만으로는 전체 스킬 팩이 설치되지 않는다.
 - `--repo`를 쓰면 `--path`를 같이 넘겨야 한다.
 - `--url`을 쓰면 `tree/<ref>/<path>`가 포함된 GitHub URL이어야 한다.
 - 설치 단위는 repo 전체가 아니라 `SKILL.md`가 있는 개별 skill directory 다.
+- 이미 같은 이름의 스킬 디렉터리가 대상 위치에 있으면 설치가 실패한다.
 
 ## Skill List
 
